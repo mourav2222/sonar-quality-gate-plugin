@@ -4,6 +4,11 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 abstract class QualityGateTask extends DefaultTask {
+    QualityGateTask() {
+        setGroup("verification")
+        setDescription("Verify that the quality indicators meet the quality gates specified on SonarQube")
+    }
+
     @TaskAction
     def action() {
         def authToken = this.project.properties.get("systemProp.sonar.login")
