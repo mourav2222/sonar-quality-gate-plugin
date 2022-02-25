@@ -1,0 +1,2 @@
+rootProject.name = 'sonar-quality-gate-plugin'
+include('sonar-quality-gate')

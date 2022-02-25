@@ -1,0 +1,60 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'groovy'
+    id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.20.0'
+}
+
+group = 'io.github.JiangTChen'
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+    testImplementation "com.github.tomakehurst:wiremock-jre8:2.32.0"
+}
+
+gradlePlugin {
+    plugins {
+        qualityGate {
+            id = 'io.github.JiangTChen.sonar-quality-gate'
+            implementationClass = 'com.lenovo.rsoss.QualityGatePlugin'
+            displayName = 'Sonarqube Quality Gate Plugin'
+            description = 'Gradle plugin to checks whether the quality meets the requirements of the specified quality gate'
+        }
+    }
+}
+
+sourceSets {
+    functionalTest {
+    }
+    test {
+    }
+}
+
+configurations.functionalTestImplementation.extendsFrom(configurations.testImplementation)
+
+tasks.register('functionalTest', Test) {
+    testClassesDirs = sourceSets.functionalTest.output.classesDirs
+    classpath = sourceSets.functionalTest.runtimeClasspath
+    useJUnitPlatform()
+}
+
+gradlePlugin.testSourceSets(sourceSets.functionalTest)
+
+tasks.named('check') {
+    dependsOn(tasks.functionalTest)
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+pluginBundle {
+    website = 'https://github.com/JiangTChen/sonar-quality-gate-plugin'
+    vcsUrl = 'https://github.com/JiangTChen/sonar-quality-gate-plugin.git'
+    tags = ['sonar', 'sonarcloud', 'sonarqube', 'qualitgate', 'quality']
+}
