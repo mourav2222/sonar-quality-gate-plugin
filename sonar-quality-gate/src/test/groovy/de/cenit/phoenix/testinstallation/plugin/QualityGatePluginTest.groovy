@@ -9,7 +9,7 @@ class QualityGatePluginTest extends Specification {
         def project = ProjectBuilder.builder().build()
 
         when:
-        project.plugins.apply("io.github.JiangTChen.sonar-quality-gate")
+        project.plugins.apply("de.cenit.phoenix.testinstallation.plugin.sonar-quality-gate")
 
         then:
         project.tasks.findByName("qualityGate") != null

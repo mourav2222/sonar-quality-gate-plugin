@@ -11,11 +11,13 @@ abstract class QualityGateTask extends DefaultTask {
 
     @TaskAction
     def action() {
-        def authToken = this.project.properties.get("systemProp.sonar.login")
+        def authToken = System.getProperty('sonar.login', null)
+        // def authToken = this.project.properties.get("systemProp.sonar.login")
         def gateName = project.qualityGate.getGateName().getOrElse(null)
         def retryTimes = project.qualityGate.getRetryTimes().get()
         def intervalSeconds = project.qualityGate.getIntervalSeconds().get()
         println("authToken:${authToken}")
+        println("authToken:${authToken ?: 'anonymous access'} ")
         println("gateName:${gateName}")
         println("retryTimes:${retryTimes}")
         println("intervalSeconds:${intervalSeconds}")
