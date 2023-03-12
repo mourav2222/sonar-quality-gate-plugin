@@ -37,8 +37,8 @@ publishing {
     repositories {
         maven {
 //            url "$buildDir/repo"
-            def releaseRepoUrl = 'http://localhost:9085/repository/maven-releases/'
-            def snapshotsRepoUrl = 'http://localhost:9085/repository/maven-snapshots/'
+            def releaseRepoUrl = 'http://xytin:9085/repository/maven-releases/'
+            def snapshotsRepoUrl = 'http://xytin:9085/repository/maven-snapshots/'
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releaseRepoUrl
             allowInsecureProtocol = true
             credentials {
