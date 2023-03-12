@@ -1,4 +1,4 @@
-package com.lenovo.rsoss
+package de.cenit.phoenix.testinstallation.plugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction

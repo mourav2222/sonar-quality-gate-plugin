@@ -1,4 +1,4 @@
-package com.lenovo.rsoss
+package de.cenit.phoenix.testinstallation.plugin
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration

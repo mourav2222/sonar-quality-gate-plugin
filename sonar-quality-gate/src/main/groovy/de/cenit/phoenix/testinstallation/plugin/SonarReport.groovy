@@ -1,4 +1,4 @@
-package com.lenovo.rsoss
+package de.cenit.phoenix.testinstallation.plugin
 
 class SonarReport {
     def taskProperties

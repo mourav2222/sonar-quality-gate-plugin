@@ -2,11 +2,11 @@ plugins {
     id 'java-gradle-plugin'
     id 'groovy'
     id 'maven-publish'
-    id 'com.gradle.plugin-publish' version '0.20.0'
+    //id 'com.gradle.plugin-publish' version '0.20.0'
 }
 
-group = 'io.github.JiangTChen'
-version = '0.1.1'
+group = 'de.cenit.phoenix.testinstallation.plugin'
+version = '0.0.1'
 
 repositories {
     mavenCentral()
@@ -20,10 +20,31 @@ dependencies {
 gradlePlugin {
     plugins {
         qualityGate {
-            id = 'io.github.JiangTChen.sonar-quality-gate'
-            implementationClass = 'com.lenovo.rsoss.QualityGatePlugin'
+            id = 'de.cenit.phoenix.testinstallation.plugin.sonar-quality-gate'
+            implementationClass = 'de.cenit.phoenix.testinstallation.plugin.QualityGatePlugin'
             displayName = 'Sonarqube Quality Gate Plugin'
             description = 'Gradle plugin to checks whether the quality meets the requirements of the specified quality gate'
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+//            url "$buildDir/repo"
+            def releaseRepoUrl = 'http://localhost:9085/repository/maven-releases/'
+            def snapshotsRepoUrl = 'http://localhost:9085/repository/maven-snapshots/'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releaseRepoUrl
+            allowInsecureProtocol = true
+            credentials {
+                username 'test'
+                password 'test123'
+            }
         }
     }
 }
@@ -53,8 +74,8 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-pluginBundle {
-    website = 'https://github.com/JiangTChen/sonar-quality-gate-plugin'
-    vcsUrl = 'https://github.com/JiangTChen/sonar-quality-gate-plugin.git'
-    tags = ['sonar', 'sonarcloud', 'sonarqube', 'qualitgate', 'quality']
-}
+//pluginBundle {
+//    website = 'https://github.com/JiangTChen/sonar-quality-gate-plugin'
+//    vcsUrl = 'https://github.com/JiangTChen/sonar-quality-gate-plugin.git'
+//    tags = ['sonar', 'sonarcloud', 'sonarqube', 'qualitgate', 'quality']
+//}

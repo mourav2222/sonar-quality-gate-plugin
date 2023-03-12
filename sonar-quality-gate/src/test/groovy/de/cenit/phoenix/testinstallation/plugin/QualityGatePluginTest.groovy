@@ -1,4 +1,4 @@
-package com.lenovo.rsoss
+package de.cenit.phoenix.testinstallation.plugin
 
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification

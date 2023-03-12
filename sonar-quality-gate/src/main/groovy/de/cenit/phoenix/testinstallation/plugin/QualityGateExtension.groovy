@@ -1,4 +1,4 @@
-package com.lenovo.rsoss
+package de.cenit.phoenix.testinstallation.plugin
 
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
