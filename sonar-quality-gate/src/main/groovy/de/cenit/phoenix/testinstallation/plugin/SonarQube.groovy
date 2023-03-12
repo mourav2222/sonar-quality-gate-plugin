@@ -9,7 +9,8 @@ class SonarQube {
 
     SonarQube(SonarReport sonarReport, authToken) {
         this.sonarReport = sonarReport
-        this.authToken = "Basic ${(authToken + ":").getBytes().encodeBase64()}"
+        //this.authToken = "Basic ${(authToken + ":").getBytes().encodeBase64()}"
+        this.authToken = authToken ? "Basic ${(authToken + ":").getBytes().encodeBase64()}" : null
     }
 
     def checkQualityGate(Integer retryTimes, Integer intervalSeconds) {
@@ -37,7 +38,9 @@ class SonarQube {
             println("selectQualityGateUrl:" + projectStatusURL)
             def selectQualityGateRequest = new URL(projectStatusURL).openConnection()
             selectQualityGateRequest.setRequestMethod("POST")
-            selectQualityGateRequest.setRequestProperty("Authorization", authToken)
+            if(authToken) {
+                selectQualityGateRequest.setRequestProperty("Authorization", authToken)
+            }
             def selectQualityGateResponseCode = selectQualityGateRequest.getResponseCode()
             if (selectQualityGateResponseCode == 204) {
                 println("select QualityGate:${gateName} successful")
@@ -52,7 +55,9 @@ class SonarQube {
         String qualityGatesURL = sonarReport.getServerUrl() + "/api/qualitygates/list"
         println("qualityGatesURL:" + qualityGatesURL)
         def getQualityGatesRequest = new URL(qualityGatesURL).openConnection()
-        getQualityGatesRequest.setRequestProperty("Authorization", authToken)
+        if(authToken) {
+            getQualityGatesRequest.setRequestProperty("Authorization", authToken)
+        }
         def getQualityGatesResponseCode = getQualityGatesRequest.getResponseCode()
         println("getQualityGatesResponseCode:${getQualityGatesResponseCode}")
         if (getQualityGatesResponseCode == 200) {
@@ -71,7 +76,9 @@ class SonarQube {
                 "/api/qualitygates/get_by_project?project=${sonarReport.projectKey}"
         println("qualityGateURL:" + qualityGateURL)
         def getQualityGateRequest = new URL(qualityGateURL).openConnection()
-        getQualityGateRequest.setRequestProperty("Authorization", authToken)
+        if(authToken) {
+            getQualityGateRequest.setRequestProperty("Authorization", authToken)
+        }
         def getQualityGateResponseCode = getQualityGateRequest.getResponseCode()
         println("getQualityGateResponseCode:${getQualityGateResponseCode}")
         if (getQualityGateResponseCode == 200) {
@@ -86,7 +93,9 @@ class SonarQube {
     def getAnalysisId(String analysisURL) {
         def analysisId = null
         def getAnalysisStatusRequest = new URL(analysisURL).openConnection()
-        getAnalysisStatusRequest.setRequestProperty("Authorization", authToken)
+        if(authToken) {
+            getAnalysisStatusRequest.setRequestProperty("Authorization", authToken)
+        }
         def analysisStatusCode = getAnalysisStatusRequest.getResponseCode()
         println("analysisStatusCode:${analysisStatusCode}")
         if (analysisStatusCode == 200) {
@@ -119,7 +128,9 @@ class SonarQube {
                     "/api/qualitygates/project_status?analysisId=" + analysisId
             println("projectStatusURL:" + projectStatusURL)
             def projectStatusRequest = new URL(projectStatusURL).openConnection()
-            projectStatusRequest.setRequestProperty("Authorization", authToken)
+            if(authToken) {
+                projectStatusRequest.setRequestProperty("Authorization", authToken)
+            }
             def projectStatusCode = projectStatusRequest.getResponseCode()
             println("projectStatusCode:${projectStatusCode}")
             if (projectStatusCode == 200) {

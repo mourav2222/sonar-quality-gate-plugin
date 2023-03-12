@@ -41,7 +41,7 @@ class QualityPluginFunctionalTest extends Specification {
         settingsFile << ""
         buildFile << """
 plugins {
-    id('io.github.JiangTChen.sonar-quality-gate')
+    id('de.cenit.phoenix.testinstallation.plugin.sonar-quality-gate')
 }
 
 qualityGate {
@@ -90,7 +90,7 @@ sonar.login = test
         given:
         buildFile.text = """
 plugins {
-    id('io.github.JiangTChen.sonar-quality-gate')
+    id('de.cenit.phoenix.testinstallation.plugin.sonar-quality-gate')
 }
 
 qualityGate {
@@ -177,7 +177,7 @@ qualityGate {
         given:
         buildFile.text = """
 plugins {
-    id('io.github.JiangTChen.sonar-quality-gate')
+    id('de.cenit.phoenix.testinstallation.plugin.sonar-quality-gate')
 }
 
 qualityGate {
